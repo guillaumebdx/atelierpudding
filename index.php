@@ -44,7 +44,7 @@
 
     ?>
     <div class="nav flex">
-        <a href="?number=1&test=hello" class="button">
+        <a href="?number=1" class="button">
             Afficher 1
         </a>
         <a href="?number=5" class="button">
@@ -54,15 +54,26 @@
             Afficher 8
         </a>
     </div>
-    <div class="flex container">
+    <div>
+        <form action="/" method="get">
+            <label for="number">Nombre de cartes</label>
+            <input name="number" min="0" type="number" id="number">
+            <button type="submit"> Ok </button>
+        </form>
+    </div>
         <?php
             $number = 10;
             if (isset($_GET['number'])) {
                 $number = $_GET['number'];
             }
+            if ($number < 0) {
+                die("Erreur, veuillez saisir un chiffre supérieur à 0");
+            }
+            echo "<div>Voici " . $number . ' cartes </div>';
+            echo '<div class="flex container">';
             echo generateCard($number, $foods, $poisons);
+            echo '</div>';
 
         ?>
-    </div>
 </body>
 </html>
